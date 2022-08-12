@@ -93,6 +93,20 @@ ifeq ($(ENABLE_OPENRC), 1)
 	"$(DESTDIR)$(SYSCONFDIR)/init.d/intel-undervolt-loop"
 endif
 
+uninstall:
+	rm -fv "$(DESTDIR)$(BINDIR)/intel-undervolt"
+	rm -fv "$(DESTDIR)$(SYSCONFDIR)/intel-undervolt.conf"
+ifeq ($(ENABLE_SYSTEMD), 1)
+	rm -fv "$(DESTDIR)$(UNITDIR)/intel-undervolt.service"
+	rm -fv "$(DESTDIR)$(UNITDIR)/intel-undervolt-loop.service"
+endif
+ifeq ($(ENABLE_ELOGIND), 1)
+	rm -fv "$(DESTDIR)$(ELOGINDDIR)/system-sleep/50-intel-undervolt"
+endif
+ifeq ($(ENABLE_OPENRC), 1)
+	rm -fv "$(DESTDIR)$(SYSCONFDIR)/init.d/intel-undervolt-loop"
+endif
+
 clean:
 	rm -fv \
 	$(intel_undervolt_objects) \
